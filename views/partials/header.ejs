@@ -1,0 +1,109 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <!-- Brand -->
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="/fitflix_3.1.2_I.png" alt="Fitflix" height="32" class="me-2">
+      <span class="fw-bold">Fitflix</span>
+    </a>
+
+    <!-- City Selector (Desktop) -->
+    <div class="d-none d-lg-block">
+      <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        <i class="bi bi-geo-alt me-1"></i>
+        <%= currentCity.name %>
+      </button>
+      <ul class="dropdown-menu">
+        <% cities.forEach(city => { %>
+          <li>
+            <form method="POST" action="/select-city" class="d-inline">
+              <input type="hidden" name="cityId" value="<%= city.id %>">
+              <input type="hidden" name="returnUrl" value="<%= typeof returnUrl !== 'undefined' ? returnUrl : '/' %>">
+              <button type="submit" class="dropdown-item <%= city.id === currentCity.id ? 'active' : '' %>">
+                <%= city.name %>, <%= city.state %>
+              </button>
+            </form>
+          </li>
+        <% }); %>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="/city-selection">View All Cities</a></li>
+      </ul>
+    </div>
+
+    <!-- Mobile Toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navigation Links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Fitness
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/gyms">Gyms & Centers</a></li>
+            <li><a class="dropdown-item" href="/trainers">Personal Trainers</a></li>
+            <li><a class="dropdown-item" href="/services">Services</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/memberships">Memberships</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+      </ul>
+
+      <!-- Right Side Actions -->
+      <div class="d-flex align-items-center">
+        <!-- Mobile City Selector -->
+        <div class="d-lg-none me-3">
+          <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <i class="bi bi-geo-alt me-1"></i>
+            <%= currentCity.name %>
+          </button>
+          <ul class="dropdown-menu">
+            <% cities.forEach(city => { %>
+              <li>
+                <form method="POST" action="/select-city" class="d-inline">
+                  <input type="hidden" name="cityId" value="<%= city.id %>">
+                  <button type="submit" class="dropdown-item <%= city.id === currentCity.id ? 'active' : '' %>">
+                    <%= city.name %>
+                  </button>
+                </form>
+              </li>
+            <% }); %>
+          </ul>
+        </div>
+
+        <!-- Search -->
+        <button class="btn btn-outline-light me-2" type="button">
+          <i class="bi bi-search"></i>
+        </button>
+
+        <!-- Sign In -->
+        <button class="btn btn-fitflix me-2" type="button">
+          Sign In
+        </button>
+
+        <!-- Profile -->
+        <div class="dropdown">
+          <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <i class="bi bi-person"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">My Profile</a></li>
+            <li><a class="dropdown-item" href="#">My Bookings</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Sign Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
